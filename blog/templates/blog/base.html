@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html >
+    <head>
+        <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" >
+        <title>Blog House</title>
+    </head>
+    <body>
+        <header>
+         <div class="container">
+             <div id="branding" >
+                <h1><span class="highlight">Blog</span> House</h1>
+             </div>
+             <nav>
+                 <ul>
+                     <li class="current"><a href="#">Home </a> </li>
+                     <li><a href="#">My Profile</a></li>
+                     <li><a href="#">Post</a></li>
+                     <li><a href="#">Sign Up</a></li>
+                     <li><a href="#">Log In</a></li>
+                     <li><a href="#">Log Out</a></li>
+                </ul>
+             </nav>
+         </div>
+        </header>
+
+        <!-- MESSAGES HERE -->
+        
+        <section id="newsLetter">
+            <div class="container">
+                <form method=POST action="#">
+                    <!-- {% csrf_token %} -->
+                    <input placeholder="Search by name" class="form-control me-2" type="search" name="searched">
+                    <button class="btn-outline-secondary" type="submit">Search</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="boxes">
+            <div class="container">
+                 {% block content %}
+                        
+                 {% endblock content %}
+            </div>
+            <!-- PAGINATION SECTION -->
+        </section>
+
+        <footer>
+            <div class="container">
+            <p> Blog &copy; 2022</p>
+            </div>
+        </footer>
+    </body>
+</html>
