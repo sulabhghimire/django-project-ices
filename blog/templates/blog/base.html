@@ -8,7 +8,7 @@
     
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" >
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
         <title>Blog House</title>
     </head>
     <body>
@@ -19,9 +19,9 @@
              </div>
              <nav>
                  <ul>
-                     <li class="current"><a href="#">Home </a> </li>
+                     <li class="current"><a href="{% url 'home' %}">Home </a> </li>
                      <li><a href="#">My Profile</a></li>
-                     <li><a href="#">Post</a></li>
+                     <li><a href="{% url 'post' %}">Post</a></li>
                      <li><a href="#">Sign Up</a></li>
                      <li><a href="#">Log In</a></li>
                      <li><a href="#">Log Out</a></li>
