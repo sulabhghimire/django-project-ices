@@ -8,8 +8,8 @@
         <a class="mr-2" href="#">{{posts.author}}</a>
         <small class="text-muted">{{posts.date_created}}</small>
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post_update' posts.pk %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post_delete' posts.pk %}">Delete</a>
           </div>
       </div>
       <h2 class="article-title">{{posts.title}}</h2>

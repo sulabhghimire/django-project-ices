@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% if searched_title %}
+        <h2> The results for searched article - {{searched_title}} </h2>
+    {% endif %}
+
+    {% for article in posts %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{article.author}}</a>
+                <small class="text-muted">{{article.date_created}}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'article_details' article.pk %}">{{article.title}}</a></h2>
+            <p class="article-content">{{article.content|truncatewords:50}}</p>
+            </div>
+        </article>
+    {% endfor %}               
+{% endblock content %}

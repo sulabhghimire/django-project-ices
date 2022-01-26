@@ -31,12 +31,19 @@
         </header>
 
         <!-- MESSAGES HERE -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         
         <section id="newsLetter">
             <div class="container">
-                <form method=POST action="#">
-                    <!-- {% csrf_token %} -->
-                    <input placeholder="Search by name" class="form-control me-2" type="search" name="searched">
+                <form method=POST action="{% url 'search' %}">
+                    {% csrf_token %}
+                    <input placeholder="Search by article name" class="form-control me-2" type="search" name="searched">
                     <button class="btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>
