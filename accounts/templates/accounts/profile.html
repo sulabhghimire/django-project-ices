@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class='media'>
+    <img src="{{user_data.profile.pic.url}}" class="images">
+    <div class="media-body">
+        <h2 class="account-headig"> Username : {{user_data.username}} </h2>
+        <a class="btn btn-primary" href="#">Change Password</a>
+        <a class="btn btn-danger" href="#">Delete Account</a>
+        <a class="btn btn-warning" href="#">Update Account</a>
+    </div>
+</div>
+<br>
+<div class="media-body">
+    <h4 class="account-headig"> Email-address       : {{user_data.email}} </h4>
+    <h4 class="account-headig"> Full Name           : {{user_data.first_name}} {{user_data.last_name}} </h4>
+    <h4 class="account-headig"> Date of Birth       : {{user_data.date_o_b}}</h4>
+    <h4 class="account-headig"> Bio                 : {{user_data.bio}}</h4>
+</div>
+{% endblock content %}

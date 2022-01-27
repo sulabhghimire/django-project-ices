@@ -32,11 +32,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # Application definition
 
 INSTALLED_APPS = [
     #our created apps
+    'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
     #3rd pary apps
     'crispy_forms',
@@ -130,3 +132,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
