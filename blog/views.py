@@ -32,27 +32,31 @@ def article_details(request, pk):
     return render(request, 'blog/article_details.html', context)
 
 def post_article(request):
-    
-    if request.method == "POST":
-        form    = ArticlePostForm(request.POST)
-        if form.is_valid():
-            data    = form.cleaned_data
-            article = Article.objects.create(
-                author  = request.user,
-                title   = data['title'],
-                content = data['content']
-            )
-            messages.success(request, "Your article was posted sucessfully.")
-            return redirect(reverse('article_details', kwargs={'pk' : article.pk}))
-        messages.error(request, "Your form is invalid.")
 
-    form    = ArticlePostForm()
+    if request.user.is_authenticated: 
+        if request.method == "POST":
+            form    = ArticlePostForm(request.POST)
+            if form.is_valid():
+                data    = form.cleaned_data
+                article = Article.objects.create(
+                    author  = request.user,
+                    title   = data['title'],
+                    content = data['content']
+                )
+                messages.success(request, "Your article was posted sucessfully.")
+                return redirect(reverse('article_details', kwargs={'pk' : article.pk}))
+            messages.error(request, "Your form is invalid.")
 
-    context = {
-        'form' : form,
-    }
+        form    = ArticlePostForm()
 
-    return render(request, "blog/post.html", context)
+        context = {
+            'form' : form,
+        }
+
+        return render(request, "blog/post.html", context)
+    else:
+        return redirect("login")
+
 
 def update_article(request, pk):
     

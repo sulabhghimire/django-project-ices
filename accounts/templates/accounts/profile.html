@@ -5,9 +5,11 @@
     <img src="{{user_data.profile.pic.url}}" class="images">
     <div class="media-body">
         <h2 class="account-headig"> Username : {{user_data.username}} </h2>
-        <a class="btn btn-primary" href="#">Change Password</a>
-        <a class="btn btn-danger" href="#">Delete Account</a>
-        <a class="btn btn-warning" href="#">Update Account</a>
+        {% if user.pk == user_data.pk %}
+            <a class="btn btn-primary" href="{% url 'password_change' %}">Change Password</a>
+            <a class="btn btn-danger" href="#">Delete Account</a>
+            <a class="btn btn-warning" href="{% url 'profile-update' %}">Update Account</a>
+        {% endif %}
     </div>
 </div>
 <br>

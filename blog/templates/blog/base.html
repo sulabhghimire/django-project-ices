@@ -20,11 +20,14 @@
              <nav>
                  <ul>
                      <li class="current"><a href="{% url 'home' %}">Home </a> </li>
-                     <li><a href="#">My Profile</a></li>
+                     {% if user.is_authenticated %}
+                     <li><a href="{% url 'profile' user.pk %}">My Profile</a></li>
                      <li><a href="{% url 'post' %}">Post</a></li>
-                     <li><a href="#">Sign Up</a></li>
-                     <li><a href="#">Log In</a></li>
-                     <li><a href="#">Log Out</a></li>
+                     <li><a href="{% url 'log_out' %}">Log Out</a></li>
+                     {% else %}
+                     <li><a href="{% url 'register' %}">Sign Up</a></li>
+                     <li><a href="{% url 'login' %}">Log In</a></li>
+                     {% endif %}
                 </ul>
              </nav>
          </div>
