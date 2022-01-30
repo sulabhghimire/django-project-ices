@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     #3rd pary apps
     'crispy_forms',
+    'django_cleanup',
     #pre-installed app
     'django.contrib.admin',
     'django.contrib.auth',
@@ -135,3 +136,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

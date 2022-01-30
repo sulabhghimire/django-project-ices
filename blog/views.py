@@ -7,13 +7,23 @@ from django.urls import reverse
 
 from django.contrib import messages
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #Class based views sajilo hunxa, override 
 #Function based views use
 
 def homepage(request):
 
+    Number_of_objects_in_page = 3
     articles    = Article.objects.all().order_by('-date_created')
+    paginator   = Paginator(articles, Number_of_objects_in_page)
+    page        = request.GET.get('page')
     
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        articles = paginator.page(1)
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)
 
     context     = {
         'posts'  : articles,
@@ -30,6 +40,7 @@ def article_details(request, pk):
     }
 
     return render(request, 'blog/article_details.html', context)
+
 
 def post_article(request):
 
@@ -60,42 +71,55 @@ def post_article(request):
 
 def update_article(request, pk):
     
+
     form_data   = get_object_or_404(Article, id=pk)
 
-    if request.method == "POST":
-        form    = ArticlePostForm(request.POST)
-        if form.is_valid():
-            data    = form.cleaned_data
-            article = form_data
-            article.title = data['title']
-            article.content = data['content']
-            article.save()
-            messages.success(request, "Your article was updated sucessfully.")
-            return redirect(reverse('article_details', kwargs={'pk' : article.pk}))
-        messages.error(request, "Your form is invalid.")
+    if form_data.author == request.user:
+        if request.method == "POST":
+            form    = ArticlePostForm(request.POST)
+            if form.is_valid():
+                data    = form.cleaned_data
+                article = form_data
+                article.title = data['title']
+                article.content = data['content']
+                article.save()
+                messages.success(request, "Your article was updated sucessfully.")
+                return redirect(reverse('article_details', kwargs={'pk' : article.pk}))
+            messages.error(request, "Your form is invalid.")
 
-    form    = ArticlePostForm(instance=form_data)
+        form    = ArticlePostForm(instance=form_data)
 
-    context = {
-        'form' : form,
-    }
+        context = {
+            'form' : form,
+        }
 
-    return render(request, "blog/update.html", context)
+        return render(request, "blog/update.html", context)
+
+    else:
+
+        return redirect("home")
 
 def article_delete(request, pk):
 
+    # url     = request.META.get('HTTP_REFERER')
     data   = get_object_or_404(Article, id=pk)
 
-    if request.method == "POST":
-        data.delete()
-        messages.success(request, "Your article was deleted sucessfully.")
-        return redirect(reverse('home'))
+    if data.author == request.user:
 
-    context = {
-        'article' : data,
-    }
+        if request.method == "POST":
+            data.delete()
+            messages.success(request, "Your article was deleted sucessfully.")
+            return redirect(reverse('home'))
 
-    return render(request, "blog/delete.html", context)
+        context = {
+            'article' : data,
+        }
+
+        return render(request, "blog/delete.html", context)
+
+    else:
+
+        return redirect("home")
 
 def search(request):
 

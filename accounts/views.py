@@ -1,12 +1,13 @@
+from django.template import context
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from .forms import UserRegistrationForm
+from .forms import UserDeleteForm, UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 User = get_user_model()
 from django.contrib import messages
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm, UserDeleteForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -103,3 +104,15 @@ def update_profile(request):
     }
 
     return render(request, "accounts/update_profile.html", context)
+
+@login_required
+def delete_user(request):
+
+    if request.method == "POST":
+        user    = request.user
+        user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect("home")
+
+    return render(request, 'accounts/delete_accounts.html')
+

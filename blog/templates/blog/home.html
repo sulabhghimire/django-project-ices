@@ -3,6 +3,7 @@
 {% block content %}  
     {% for article in posts %}
         <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ article.author.profile.pic.url }}">
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'profile' article.author.pk %}">{{article.author}}</a>
